@@ -20,14 +20,16 @@ const pokeList = pokeListGenerator();
 pokeList.next().then(console.log).catch(console.log);
 pokeList.next().then(console.log).catch(console.log);
 
-function App() {
-  return (
-    <div>
-      <header>Pokedex</header>
-      <main>
-      </main>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <header>Pokedex</header>
+        <main>
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;
