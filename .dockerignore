@@ -3,6 +3,7 @@ Dockerfile
 .dockerignore
 .gitignore
 README.md
+.git
 
 # artifacts
 build
