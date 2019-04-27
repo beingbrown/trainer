@@ -1,6 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Pokedex} from 'pokeapi-js-wrapper';
+
+const dex = new Pokedex();
+dex.getPokemonsList().then(console.log).catch(console.log);
 
 function App() {
   return (
