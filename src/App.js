@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Pokedex} from 'pokeapi-js-wrapper';
 
 async function* pokeListGenerator() {
-  const dex = new Pokedex();
+  const dex = new Pokedex({protocol: 'https'});
 
   let interval = {limit: 50, offset: 0};
   let curr, next;
