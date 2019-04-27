@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Pokedex} from 'pokeapi-js-wrapper';
 
 async function* pokeListGenerator() {
@@ -17,10 +17,11 @@ async function* pokeListGenerator() {
 };
 
 const pokeList = pokeListGenerator();
-pokeList.next().then(console.log).catch(console.log);
-pokeList.next().then(console.log).catch(console.log);
 
 function App() {
+  const [pokes,setPokes] = useState([]);
+  pokeList.next().then(setPokes);
+
   return (
     <div>
       <header>Pokedex</header>
