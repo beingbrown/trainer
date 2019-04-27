@@ -1,8 +1,24 @@
 import React from 'react';
 import {Pokedex} from 'pokeapi-js-wrapper';
 
-const dex = new Pokedex();
-dex.getPokemonsList().then(console.log).catch(console.log);
+async function* pokeListGenerator() {
+  const dex = new Pokedex();
+
+  let interval = {limit: 50, offset: 0};
+  let curr, next;
+
+  curr = await dex.getPokemonsList(interval);
+  while(curr.next) {
+    interval.offset+=interval.limit;
+    next = dex.getPokemonsList(interval);
+    yield await curr;
+    curr = await next;
+  }
+};
+
+const pokeList = pokeListGenerator();
+pokeList.next().then(console.log).catch(console.log);
+pokeList.next().then(console.log).catch(console.log);
 
 function App() {
   return (
