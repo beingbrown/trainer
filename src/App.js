@@ -9,6 +9,13 @@ async function* pokeListGenerator() {
 
   curr = await dex.getPokemonsList(interval);
   while(curr.next) {
+/**
+ * the downside of placing this in the while loop is that it increases the
+ * wait time to the moment of request, rather than capitalizing on pre-fetch
+**/
+    curr = curr.results.map(poke => fetch(poke.url).then(rsp => rsp.json()));
+    curr = await Promise.all(curr);
+
     interval.offset+=interval.limit;
     next = dex.getPokemonsList(interval);
     yield await curr;
@@ -29,7 +36,7 @@ function App() {
         <ul>
           {pokes.map(poke => <li>{poke.name}</li>)}
         </ul>
-        <button onClick={() => pokeList.next().then(rsp => {console.log(rsp); setPokes([...pokes, ...rsp.value.results]);})}>
+        <button onClick={() => pokeList.next().then(rsp => {console.log(rsp); setPokes([...pokes, ...rsp.value]);})}>
           Get Pokemon!
         </button>
       </main>
