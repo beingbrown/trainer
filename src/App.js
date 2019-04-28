@@ -20,12 +20,18 @@ const pokeList = pokeListGenerator();
 
 function App() {
   const [pokes,setPokes] = useState([]);
-  pokeList.next().then(setPokes);
+//  pokeList.next().then(setPokes);
 
   return (
     <div>
       <header>Pokedex</header>
       <main>
+        <ul>
+          {pokes.map(poke => <li>{poke.name}</li>)}
+        </ul>
+        <button onClick={() => pokeList.next().then(rsp => {console.log(rsp); setPokes([...pokes, ...rsp.value.results]);})}>
+          Get Pokemon!
+        </button>
       </main>
     </div>
   );
