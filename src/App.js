@@ -36,7 +36,7 @@ function App() {
         <ul>
           {pokes.map(poke => <li>{poke.name}</li>)}
         </ul>
-        <button onClick={() => pokeList.next().then(rsp => {console.log(rsp); setPokes([...pokes, ...rsp.value]);})}>
+        <button onClick={() => pokeList.next().then(rsp => setPokes([...pokes, ...rsp.value]))}>
           Get Pokemon!
         </button>
       </main>
