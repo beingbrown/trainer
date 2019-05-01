@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Pokedex} from 'pokeapi-js-wrapper';
 
+import './App.css';
+
 async function* pokeListGenerator() {
   const dex = new Pokedex({protocol: 'https'});
 
@@ -29,8 +31,8 @@ function App() {
   const [pokes,setPokes] = useState([]);
 
   return (
-    <div>
-      <header>Pokedex</header>
+    <div class="App">
+      <header class="App-header">Pokedex</header>
       <main>
         <ul>
           {pokes.map(poke => <li><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
