@@ -19,6 +19,11 @@ main > ul {
 }
 
 li {
+  flex-basis: 21%;
   display: flex;
   flex-direction: column;
+}
+
+img {
+  margin: auto;
 }
