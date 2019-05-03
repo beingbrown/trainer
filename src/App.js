@@ -35,7 +35,7 @@ function App() {
       <header class="App-header">Pokedex</header>
       <main>
         <ul>
-          {pokes.map(poke => <li><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
+          {pokes.map(poke => <li><img width="96" src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
         </ul>
         <button onClick={() => pokeList.next().then(rsp => setPokes([...pokes, ...rsp.value]))}>
           Get Pokemon!
