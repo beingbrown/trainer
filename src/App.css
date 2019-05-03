@@ -12,15 +12,19 @@
   color: white;
 }
 
+li, main > ul {
+  display: flex;
+  padding: 0px;
+  justify-content: space-around;
+}
+
 main > ul {
   list-style-type: none;
-  display: flex;
   flex-wrap: wrap;
 }
 
 li {
   flex-basis: 21%;
-  display: flex;
   flex-direction: column;
 }
 
