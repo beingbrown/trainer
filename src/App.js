@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Pokedex} from 'pokeapi-js-wrapper';
 
 import './App.css';
@@ -29,6 +29,12 @@ const pokeList = pokeListGenerator();
 
 function App() {
   const [pokes,setPokes] = useState([]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', event => {
+      console.log(event);
+    });
+  }, []);
 
   return (
     <div class="App">
