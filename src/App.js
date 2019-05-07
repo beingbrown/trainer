@@ -31,6 +31,10 @@ function App() {
   const [pokes,setPokes] = useState([]);
 
   useEffect(() => {
+    if(document.body.clientHeight < document.documentElement.clientHeight) {
+      pokeList.next().then(rsp => setPokes([...pokes, ...rsp.value]));
+    }
+
     window.addEventListener('scroll', event => {
       console.log(window.pageYOffset, window.innerHeight, event);
       // provide some standard heights for the document element
