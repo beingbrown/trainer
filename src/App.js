@@ -32,7 +32,15 @@ function App() {
 
   useEffect(() => {
     window.addEventListener('scroll', event => {
-      console.log(event);
+      console.log(window.pageYOffset, window.innerHeight, event);
+      // provide some standard heights for the document element
+      console.log("offset height", document.documentElement.offsetHeight);
+      console.log("scroll height", document.documentElement.scrollHeight);
+      console.log("client height", document.documentElement.clientHeight);
+      // now do the same for document body
+      console.log("body offset height", document.body.offsetHeight);
+      console.log("body scroll height", document.body.scrollHeight);
+      console.log("body client height", document.body.clientHeight);
     });
   }, []);
 
