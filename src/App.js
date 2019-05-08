@@ -29,11 +29,17 @@ const pokeList = pokeListGenerator();
 
 function App() {
   const [pokes,setPokes] = useState([]);
+  let call = false;
 
-  useEffect(() => {
-    if(document.body.clientHeight < document.documentElement.clientHeight) {
-      pokeList.next().then(rsp => setPokes([...pokes, ...rsp.value]));
+  const getNextPokes = (currPokes) => () => {
+    if(!call && document.body.clientHeight <= window.pageYOffset + 2 * document.documentElement.clientHeight) {
+      call = true;
+      pokeList.next().then(rsp => {
+        setPokes([...currPokes, ...rsp.value]);
+        call = false;
+      });
     }
+  }
 
     window.addEventListener('scroll', event => {
       console.log(window.pageYOffset, window.innerHeight, event);
