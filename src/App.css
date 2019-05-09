@@ -29,6 +29,7 @@ li {
 }
 
 img {
+  margin: auto;
   object-fit: contain;
   max-width: 96px;
 }
