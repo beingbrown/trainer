@@ -6,7 +6,7 @@ import './App.css';
 async function* pokeListGenerator() {
   const dex = new Pokedex({protocol: 'https'});
 
-  let interval = {limit: 50, offset: 0};
+  let interval = {limit: 100, offset: 0};
   let curr, next;
 
   curr = await dex.getPokemonsList(interval);
@@ -32,7 +32,7 @@ function App() {
   let call = false;
 
   const getNextPokes = (currPokes) => () => {
-    if(!call && document.body.clientHeight <= window.pageYOffset + 4 * document.documentElement.clientHeight) {
+    if(!call && document.body.clientHeight <= window.pageYOffset + 2 * document.documentElement.clientHeight) {
       call = true;
       pokeList.next().then(rsp => {
         setPokes([...currPokes, ...rsp.value]);
