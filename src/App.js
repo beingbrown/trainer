@@ -56,7 +56,7 @@ function App() {
       <header class="App-header">Pokedex</header>
       <main>
         <ul>
-          {pokes.map(poke => <li><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
+          {pokes.filter((poke, idx) => idx < 802).map(poke => <li><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
         </ul>
       </main>
     </div>
