@@ -7,7 +7,7 @@ async function* pokeListGenerator() {
   const dex = new Pokedex({protocol: 'https'});
 
   let interval = {limit: 100, offset: 0};
-  let curr, next;
+  let curr, next, pokemon;
 
   curr = await dex.getPokemonsList(interval);
   while(curr.next) {
