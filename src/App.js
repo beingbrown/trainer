@@ -7,20 +7,19 @@ async function* pokeListGenerator() {
   const dex = new Pokedex({protocol: 'https'});
 
   let interval = {limit: 100, offset: 0};
-  let curr, next, pokemon;
+  let curr, next;
 
   curr = await dex.getPokemonsList(interval);
-  while(curr.next) {
-/**
- * the downside of placing this in the while loop is that it increases the
- * wait time to the moment of request, rather than capitalizing on pre-fetch
-**/
-    curr = curr.results.map(poke => fetch(poke.url).then(rsp => rsp.json()));
-    curr = await Promise.all(curr);
+  curr.results = await Promise.all(curr.results.map(poke => fetch(poke.url).then(rsp => rsp.json())));
 
+  while(!curr.done) {
     interval.offset+=interval.limit;
-    next = dex.getPokemonsList(interval);
-    yield await curr;
+
+    next = dex.getPokemonsList(interval).then(({results, ...rest}) => (
+      {...rest, results: Promise.all(results.map(poke => fetch(poke.url).then(rsp => rsp.json())))}
+    ));
+
+    yield await curr.results;
     curr = await next;
   }
 };
