@@ -35,7 +35,6 @@ function App() {
       call = true;
       pokeList.next().then(rsp => {
         setPokes([...currPokes, ...rsp.value]);
-        call = false;
       });
     }
   }
