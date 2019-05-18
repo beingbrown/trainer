@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {createPortal} from 'react-dom';
 import {Pokedex} from 'pokeapi-js-wrapper';
 
 import './App.css';
@@ -25,6 +26,10 @@ async function* pokeListGenerator() {
 };
 
 const pokeList = pokeListGenerator();
+
+function Modal({poke}) {
+  return createPortal(<div><h2>{poke.name}</h2></div>, document.getElementById('modal-root'));
+}
 
 function App() {
   const [pokes,setPokes] = useState([]);
@@ -59,6 +64,7 @@ function App() {
           {pokes.filter(poke => poke.id < 803).map(poke => <li onClick={event => setActivePoke(poke)}><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
         </ul>
       </main>
+      { activePoke && <Modal poke={activePoke} /> }
     </div>
   );
 }
