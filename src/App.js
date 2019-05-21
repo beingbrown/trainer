@@ -27,8 +27,13 @@ async function* pokeListGenerator() {
 
 const pokeList = pokeListGenerator();
 
-function Modal({poke,closeBehavior}) {
-  return createPortal(<div onClick={closeBehavior}><h2>{poke.name}</h2></div>, document.getElementById('modal-root'));
+function Modal({children,closeBehavior}) {
+  return createPortal(
+    <div onClick={closeBehavior}>
+      <div>{children}</div>
+    </div>,
+    document.getElementById('modal-root')
+  );
 }
 
 function App() {
@@ -64,7 +69,11 @@ function App() {
           {pokes.filter(poke => poke.id < 803).map(poke => <li onClick={event => setActivePoke(poke)}><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
         </ul>
       </main>
-      { activePoke && <Modal poke={activePoke} closeBehavior={event => setActivePoke()} /> }
+      { activePoke &&
+        <Modal poke={activePoke} closeBehavior={event => setActivePoke()}>
+          <h2>{activePoke.name}</h2>
+        </Modal>
+      }
     </div>
   );
 }
