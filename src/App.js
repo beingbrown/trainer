@@ -70,7 +70,7 @@ function App() {
         </ul>
       </main>
       { activePoke &&
-        <Modal poke={activePoke} closeBehavior={event => setActivePoke()}>
+        <Modal closeBehavior={event => setActivePoke()}>
           <h2>{activePoke.name}</h2>
         </Modal>
       }
