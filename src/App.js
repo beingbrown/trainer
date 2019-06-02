@@ -11,14 +11,22 @@ async function* pokeListGenerator() {
   let curr, next;
 
   curr = await dex.getPokemonsList(interval);
-  curr.results = await Promise.all(curr.results.map(poke => fetch(poke.url).then(rsp => rsp.json())));
+  curr.results = await Promise.all(curr.results.map(poke =>
+    fetch(poke.url).then(rsp => rsp.json())
+                   .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
+                   .then(speciesData => ({...mon, species: speciesData})))
+  ));
 
   while(!curr.done) {
     interval.offset+=interval.limit;
 
-    next = dex.getPokemonsList(interval).then(({results, ...rest}) => (
-      {...rest, results: Promise.all(results.map(poke => fetch(poke.url).then(rsp => rsp.json())))}
-    ));
+    next = dex.getPokemonsList(interval).then(({results, ...rest}) =>
+      ({...rest, results: Promise.all(results.map(poke =>
+        fetch(poke.url).then(rsp => rsp.json())
+                       .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
+                       .then(speciesData => ({...mon, species: speciesData})))
+      ))})
+    );
 
     yield await curr.results;
     curr = await next;
