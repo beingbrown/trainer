@@ -80,6 +80,14 @@ function App() {
       { activePoke &&
         <Modal closeBehavior={event => setActivePoke()}>
           <h2>{activePoke.name}</h2>
+          <img src={activePoke.sprites.front_default} />
+          <h3>Types</h3>
+          <ul>
+            {activePoke.types.map(type => <li>{type.type.name}</li>)}
+          </ul>
+          <dl>
+            {activePoke.species.flavor_text_entries.map(flavor => <div><dt>flavor</dt><dd>{flavor.flavor_text}</dd></div>)}
+          </dl>
         </Modal>
       }
     </div>
