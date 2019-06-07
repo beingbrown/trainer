@@ -10,17 +10,8 @@ async function* pokeListGenerator() {
   let interval = {limit: 100, offset: 0};
   let curr, next;
 
-  curr = await dex.getPokemonsList(interval);
-  curr.results = await Promise.all(curr.results.map(poke =>
-    fetch(poke.url).then(rsp => rsp.json())
-                   .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
-                   .then(speciesData => ({...mon, species: speciesData})))
-  ));
-
-  while(!curr.done) {
-    interval.offset+=interval.limit;
-
-    next = dex.getPokemonsList(interval).then(({results, ...rest}) =>
+  const getHydratedPokes = interval =>
+    dex.getPokemonsList(interval).then(({results, ...rest}) =>
       ({...rest, results: Promise.all(results.map(poke =>
         fetch(poke.url).then(rsp => rsp.json())
                        .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
@@ -28,6 +19,27 @@ async function* pokeListGenerator() {
       ))})
     );
 
+//  curr = await dex.getPokemonsList(interval);
+//  curr.results = await Promise.all(curr.results.map(poke =>
+//    fetch(poke.url).then(rsp => rsp.json())
+//                   .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
+//                   .then(speciesData => ({...mon, species: speciesData})))
+//  ));
+
+  curr = await getHydratedPokes(interval);
+
+  while(!curr.done) {
+    interval.offset+=interval.limit;
+
+//    next = dex.getPokemonsList(interval).then(({results, ...rest}) =>
+//      ({...rest, results: Promise.all(results.map(poke =>
+//        fetch(poke.url).then(rsp => rsp.json())
+//                       .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
+//                       .then(speciesData => ({...mon, species: speciesData})))
+//      ))})
+//    );
+
+    next = getHydratedPokes(interval);
     yield await curr.results;
     curr = await next;
   }
