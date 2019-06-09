@@ -40,29 +40,31 @@ function Modal({children,closeBehavior}) {
   );
 }
 
+const pokeCallManager = call => (currPokes, setPokes) => () => {
+  if(!call && document.body.clientHeight <= window.pageYOffset + 2 * document.documentElement.clientHeight) {
+    call = true;
+    pokeList.next().then(rsp => {
+      setPokes([...currPokes, ...rsp.value]);
+    });
+  }
+}
+
 function App() {
   const [pokes,setPokes] = useState([]);
   const [activePoke, setActivePoke] = useState();
 
   let call = false;
 
-  const getNextPokes = (currPokes) => () => {
-    if(!call && document.body.clientHeight <= window.pageYOffset + 2 * document.documentElement.clientHeight) {
-      call = true;
-      pokeList.next().then(rsp => {
-        setPokes([...currPokes, ...rsp.value]);
-      });
-    }
-  }
+  const getNextPokes = pokeCallManager(call);
 
   useEffect(() => {
-    let pokeRetrieve = getNextPokes(pokes);
+    let pokeRetrieve = getNextPokes(pokes, setPokes);
     window.addEventListener('scroll', pokeRetrieve);
     return () => window.removeEventListener('scroll', pokeRetrieve);
   }, [pokes]);
 
   useEffect(() => {
-    getNextPokes(pokes)();
+    getNextPokes(pokes, setPokes)();
   }, []);
 
   return (
