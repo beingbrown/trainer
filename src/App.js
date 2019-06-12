@@ -15,7 +15,9 @@ async function* pokeListGenerator() {
       ({...rest, results: Promise.all(results.map(poke =>
         fetch(poke.url).then(rsp => rsp.json())
                        .then(mon => fetch(mon.species.url).then(rsp => rsp.json())
-                       .then(speciesData => ({...mon, species: speciesData})))
+                         .then(speciesData => ({...mon, species: speciesData})) //)
+                         .then(pokemon => fetch(pokemon.sprites.front_default).then(rsp => rsp.blob())
+                           .then(img => ({...pokemon, sprites: {front_default: URL.createObjectURL(img)}}))))
       ))})
     );
 
