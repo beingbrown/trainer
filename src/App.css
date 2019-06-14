@@ -45,3 +45,6 @@ img {
   justify-content: center;
   align-items: center;
 }
+#modal-root > div > div {
+  background-color: rgb(256, 256, 256);
+}
