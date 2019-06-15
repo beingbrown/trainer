@@ -85,10 +85,7 @@ function App() {
           <ul>
             {activePoke.types.map(type => <li>{type.type.name}</li>)}
           </ul>
-          <dl>
-            {activePoke.species.flavor_text_entries.filter(flavor => flavor.language.name === "en")
-                                                   .map(flavor => <div><dt>{flavor.version.name}</dt><dd>{flavor.flavor_text}</dd></div>)}
-          </dl>
+          <p>{activePoke.species.flavor_text_entries.filter(flavor => flavor.language.name === "en")[0].flavor_text}</p>
         </Modal>
       }
     </div>
