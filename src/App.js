@@ -81,6 +81,11 @@ function App() {
         <Modal closeBehavior={event => setActivePoke()}>
           <h2>{activePoke.name}</h2>
           <img src={activePoke.sprites.front_default} />
+          <h3>Stats</h3>
+           <dl>
+             <dt>Height:</dt><dd>{activePoke.height} decimeters</dd>
+             <dt>Weight:</dt><dd>{activePoke.weight} hectograms</dd>
+           </dl>
           <h3>Types</h3>
           <ul>
             {activePoke.types.map(type => <li>{type.type.name}</li>)}
