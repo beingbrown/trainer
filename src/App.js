@@ -79,7 +79,7 @@ function App() {
       </main>
       { activePoke &&
         <Modal closeBehavior={event => setActivePoke()}>
-          <h2>{activePoke.name}</h2>
+          <h2>{`${activePoke.species.genera.filter(gen => gen.language.name === "en")[0].genus} ${activePoke.name}`}</h2>
           <img src={activePoke.sprites.front_default} />
           <h3>Stats</h3>
            <dl>
