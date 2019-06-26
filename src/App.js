@@ -35,7 +35,7 @@ const pokeList = pokeListGenerator();
 
 function Modal({children,closeBehavior}) {
   return createPortal(
-    <div onClick={closeBehavior}>
+    <div>
       <div>{children}</div>
     </div>,
     document.getElementById('modal-root')
@@ -78,19 +78,21 @@ function App() {
         </ul>
       </main>
       { activePoke &&
-        <Modal closeBehavior={event => setActivePoke()}>
-          <h2>{`${activePoke.species.genera.filter(gen => gen.language.name === "en")[0].genus} ${activePoke.name}`}</h2>
-          <img src={activePoke.sprites.front_default} />
-          <h3>Stats</h3>
-           <dl>
-             <dt>Height:</dt><dd>{activePoke.height} decimeters</dd>
-             <dt>Weight:</dt><dd>{activePoke.weight} hectograms</dd>
-           </dl>
-          <h3>Types</h3>
-          <ul>
-            {activePoke.types.map(type => <li>{type.type.name}</li>)}
-          </ul>
-          <p>{activePoke.species.flavor_text_entries.filter(flavor => flavor.language.name === "en")[0].flavor_text}</p>
+        <Modal>
+          <div onClick={event => setActivePoke()}>
+            <h2>{`${activePoke.species.genera.filter(gen => gen.language.name === "en")[0].genus} ${activePoke.name}`}</h2>
+            <img src={activePoke.sprites.front_default} />
+            <h3>Stats</h3>
+            <dl>
+              <dt>Height:</dt><dd>{activePoke.height} decimeters</dd>
+              <dt>Weight:</dt><dd>{activePoke.weight} hectograms</dd>
+            </dl>
+            <h3>Types</h3>
+            <ul>
+              {activePoke.types.map(type => <li>{type.type.name}</li>)}
+            </ul>
+            <p>{activePoke.species.flavor_text_entries.filter(flavor => flavor.language.name === "en")[0].flavor_text}</p>
+          </div>
         </Modal>
       }
     </div>
