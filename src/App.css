@@ -45,6 +45,12 @@ img {
   justify-content: center;
   align-items: center;
 }
+
 #modal-root > div > div {
+  width: 35em;
+  max-width: 90vw;
+  height: 45em;
+  max-height: 90vh;
+  overflow: auto;
   background-color: rgb(256, 256, 256);
 }
