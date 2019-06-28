@@ -92,6 +92,11 @@ function App() {
               {activePoke.types.map(type => <li>{type.type.name}</li>)}
             </ul>
             <p>{activePoke.species.flavor_text_entries.filter(flavor => flavor.language.name === "en")[0].flavor_text}</p>
+            <div>
+              {[0,1,2,3,4,5].map(id => (
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" />
+              ))}
+            </div>
           </div>
         </Modal>
       }
