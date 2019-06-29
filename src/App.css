@@ -54,3 +54,7 @@ img {
   overflow: auto;
   background-color: rgb(256, 256, 256);
 }
+
+img.pokeball {
+  filter: grayscale(100%);
+}
