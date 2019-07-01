@@ -54,7 +54,7 @@ const pokeCallManager = call => (currPokes, setPokes) => () => {
 function App() {
   const [pokes,setPokes] = useState([]);
   const [activePoke, setActivePoke] = useState();
-  const [pokeTeam, setPokeTeam] = useState([]);
+  const [pokeTeam, setPokeTeam] = useState({});
 
   let call = false;
 
@@ -98,9 +98,9 @@ function App() {
                 <img
                   onClick={event => {
                     event.preventDefault();
-                    setPokeTeam([...pokeTeam, activePoke]);
+                    setPokeTeam({...pokeTeam, [id]: activePoke});
                   }}
-                  class={id > (pokeTeam.length - 1) ? "pokeball" : ""}
+                  class={!Object.keys(pokeTeam).includes(`${id}`) ? "pokeball" : ""}
                   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
                 />
               ))}
