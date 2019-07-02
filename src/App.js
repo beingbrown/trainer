@@ -72,7 +72,7 @@ function App() {
 
   return (
     <div class="App">
-      <header class="App-header">Pokedex</header>
+      <header class="App-header">Pokedex<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" /></header>
       <main>
         <ul>
           {pokes.filter(poke => poke.id < 803).map(poke => <li onClick={event => setActivePoke(poke)}><img src={poke.sprites.front_default} alt={poke.name} />{`${poke.id}: ${poke.name}`}</li>)}
