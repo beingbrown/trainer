@@ -55,6 +55,7 @@ function App() {
   const [pokes,setPokes] = useState([]);
   const [activePoke, setActivePoke] = useState();
   const [pokeTeam, setPokeTeam] = useState({});
+  const [pokeTeamView, setPokeTeamView] = useState(false);
 
   let call = false;
 
