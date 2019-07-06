@@ -75,7 +75,10 @@ function App() {
     <div class="App">
       <header class="App-header">
 	<h1>Pokedex</h1>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" />
+        <img
+          onClick={event => setPokeTeamView(true)}
+          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+        />
       </header>
       <main>
         <ul>
