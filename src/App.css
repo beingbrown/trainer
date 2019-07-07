@@ -22,6 +22,8 @@ h1 {
   margin: unset;
   object-fit: contain;
   width: 9vw;
+  min-width: 48px;
+  max-width: 64px;
 }
 
 li, main > ul {
