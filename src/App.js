@@ -115,6 +115,16 @@ function App() {
           </div>
         </Modal>
       }
+      {pokeTeamView &&
+        <Modal>
+          <div onClick={event => setPokeTeamView(false)}>
+            <h2>Poke Team</h2>
+            {Object.values(pokeTeam).map(poke => (
+              <img src={poke.sprites.front_default} />
+            ))}
+          </div>
+        </Modal>
+      }
     </div>
   );
 }
