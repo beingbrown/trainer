@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {createPortal} from 'react-dom';
 import {Pokedex} from 'pokeapi-js-wrapper';
+
+import Modal from './components/Modal';
 
 import './App.css';
 
@@ -32,15 +33,6 @@ async function* pokeListGenerator() {
 };
 
 const pokeList = pokeListGenerator();
-
-function Modal({children,closeBehavior}) {
-  return createPortal(
-    <div>
-      <div>{children}</div>
-    </div>,
-    document.getElementById('modal-root')
-  );
-}
 
 const pokeCallManager = call => (currPokes, setPokes) => () => {
   if(!call && document.body.clientHeight <= window.pageYOffset + 2 * document.documentElement.clientHeight) {
